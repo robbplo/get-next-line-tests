@@ -6,7 +6,7 @@
 /*   By: rploeger <rploeger.student@codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 19:38:30 by rploeger          #+#    #+#             */
-/*   Updated: 2025/10/19 19:54:08 by rploeger         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:19:08 by rploeger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// TODO: buffersize 0 -> infinite loop
 
 int main(int argc, char **argv)
 {
@@ -35,6 +33,11 @@ int main(int argc, char **argv)
 	}
 	for (int i = 0; i < 10; i++) {
 		str = get_next_line(fd);
+		if (!str)
+		{
+			printf("String was null\n");
+			exit(1);
+		}
 		printf("%s", str);
 		assert(strlen(str) == i + 2);
 		free(str);
