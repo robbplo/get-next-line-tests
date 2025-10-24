@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -g -I$(LIBNEXTLINE)
+CFLAGS = -g -I$(LIBNEXTLINE) -fsanitize=address
 LDFLAGS = -L$(LIBNEXTLINE) -lnextline
 SRCS = 
 OUT = test

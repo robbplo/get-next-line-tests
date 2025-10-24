@@ -6,7 +6,7 @@
 /*   By: rploeger <rploeger.student@codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 19:38:30 by rploeger          #+#    #+#             */
-/*   Updated: 2025/10/22 12:41:20 by rploeger         ###   ########.fr       */
+/*   Updated: 2025/10/24 15:52:43 by rploeger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	test4()
 	printf("\nTest one line with a million characters\n");
 	fd = open("./files/million", O_RDONLY);
 	str = get_next_line(fd);
-	printf("one million test\n");
 	assert(str[0] == '1');
 	assert(str[1000] == '1');
 	assert(str[10000] == '1');
@@ -100,6 +99,20 @@ void	test5()
 	assert(get_next_line(INT32_MIN) == NULL);
 }
 
+void test6()
+{
+	char *str;
+	int fd;
+
+	printf("\nTest one char\n");
+	fd = open("./files/1char", O_RDONLY);
+	str = get_next_line(fd);
+	printf("%s", str);
+	assert(str[0] == '1');
+	assert(get_next_line(fd) == NULL);
+	free(str);
+}
+
 int main(int argc, char **argv)
 {
 	char *str;
@@ -111,6 +124,7 @@ int main(int argc, char **argv)
 		test3();
 		test4();
 		test5();
+		test6();
 	} 
 	if (argc == 2) {
 		if (!strcmp("-", argv[1]))
