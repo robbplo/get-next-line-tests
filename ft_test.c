@@ -6,7 +6,7 @@
 /*   By: rploeger <rploeger.student@codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 19:38:30 by rploeger          #+#    #+#             */
-/*   Updated: 2025/10/24 15:52:43 by rploeger         ###   ########.fr       */
+/*   Updated: 2025/10/25 09:05:35 by rploeger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	test1()
 		assert(strlen(str) == i + 2);
 		free(str);
 	}
-	assert(get_next_line(fd) == NULL);
+	str = get_next_line(fd);
+	assert(str == NULL);
 }
 
 void	test2()
@@ -111,6 +112,52 @@ void test6()
 	assert(str[0] == '1');
 	assert(get_next_line(fd) == NULL);
 	free(str);
+
+	printf("\nTest one char without newline\n");
+	fd = open("./files/1char-no-nl", O_RDONLY);
+	str = get_next_line(fd);
+	printf("%s", str);
+	assert(str[0] == '1');
+	assert(get_next_line(fd) == NULL);
+	free(str);
+}
+
+void test7()
+{
+	char *str;
+	int fd;
+
+	printf("\nTest alternating line with newline\n");
+	fd = open("./files/alternate_lines", O_RDONLY);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "98765432109876543210987654321098765432109\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "012345678901234567890123456789012345678901\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "9876543210987654321098765432109876543210987\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "012345678901234567890123456789012345678901\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "\n"));
+	free(str);
+	str = get_next_line(fd);
+	assert(!strcmp(str, "98765432109876543210987654321098765432109"));
+	free(str);
+	str = get_next_line(fd);
+	assert(str == NULL);
 }
 
 int main(int argc, char **argv)
@@ -125,6 +172,7 @@ int main(int argc, char **argv)
 		test4();
 		test5();
 		test6();
+		test7();
 	} 
 	if (argc == 2) {
 		if (!strcmp("-", argv[1]))
