@@ -8,16 +8,21 @@ LIBNEXTLINE = ..
 test: test_1 test_42 test_10m
 
 m_1:
-	@$(CC) -D="BUFFER_SIZE 1" -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
-	@$(CC) $(CFLAGS) ../get_next_line.o ../get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
+	@$(CC) -D="BUFFER_SIZE 1" -g -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
+	@$(CC) $(CFLAGS) get_next_line.o get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
 
 m_42:
-	@$(CC) -D="BUFFER_SIZE 42" -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
-	@$(CC) $(CFLAGS) ../get_next_line.o ../get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
+	@$(CC) -D="BUFFER_SIZE 42" -g -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
+	@$(CC) $(CFLAGS) get_next_line.o get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
 
 m_10m:
-	@$(CC) -D="BUFFER_SIZE 1000000" -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
-	@$(CC) $(CFLAGS) ../get_next_line.o ../get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
+	@$(CC) -D="BUFFER_SIZE 10000000" -g -fsanitize=address ../get_next_line.c ../get_next_line_utils.c -c
+	@$(CC) $(CFLAGS) get_next_line.o get_next_line_utils.o ft_test.c $(LDFLAGS) -o $(OUT)
+
+b_42:
+	@$(CC) -D="BUFFER_SIZE 42" -g -fsanitize=address ../get_next_line_bonus.c ../get_next_line_utils_bonus.c -c
+	@$(CC) $(CFLAGS) get_next_line_bonus.o get_next_line_utils_bonus.o ft_test.c $(LDFLAGS) -o $(OUT)
+
 
 test_1: m_1
 	@echo "================================="
